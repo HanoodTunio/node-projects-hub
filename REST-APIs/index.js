@@ -10,6 +10,26 @@ const PORT = 8080;
 app.use(express.json()); // Add this line to parse JSON request bodies
 app.use(express.urlencoded({ extended: false }));
 
+app.use((req, res, next) => {
+    console.log("Hello from Middleware no: 1")
+    // return res.json({ msg: "Hello from middle ware no 1.." })
+    next();
+})
+
+app.use((req, res, next) => {
+    console.log("Hello from Middleware no: 2")
+    // return res.json({ msg: "Hello from middle ware no 1.." })
+    // return res.end("Hey")
+    next();
+})
+
+app.use((req, res, next) => {
+    fs.appendFile("log.txt", `${Date.now()}: ${req.method} ${req.url} \n`, (err, data) => {
+        next();
+    })
+
+})
+
 app.get("/users", (req, res) => {
     const html = `
     <html>
