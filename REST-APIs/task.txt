@@ -1,0 +1,15 @@
+REST API - JSON
+
+GET/Users -> List all users
+
+
+GET/Users/1 -> Get the user with ID 1
+GET/Users/2 -> Get the user with ID 2
+
+POST/Users -> Create a new User
+
+PATCH/ Users -> Edit the user with ID 1
+
+DELETE/ user -> DELETE the user with ID 1
+
+we the mackaroo.com to generate the dummy data
