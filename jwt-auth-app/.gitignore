@@ -1,7 +1,5 @@
-# JWT_AUTH_APP/.gitignore  
-
-node_modules/        # Ignore node_modules in both front-end and backend (if they exist)  
-front-end/node_modules/ #Specifying like this is redundant  
-backend/node_modules/ #Specifying like this is redundant  
-front-end/build/       # Ignore front-end build output  
-backend/dist/        # Ignore backend build output  
+node_modules/
+front-end/node_modules/
+backend/node_modules/
+front-end/build/
+backend/dist/
