@@ -64,9 +64,24 @@ app.patch("/api/users/:id", (req, res) => {
 });
 
 app.delete("/api/users/:id", (req, res) => {
-    //delete the user with the id 
-    return res.json({ states: "pending" })
-})
+    const id = Number(req.params.id); // Get the user ID from the URL parameter
+    const user = users.find(user => user.id === id); // Find the user by ID
+
+    if (!user) {
+        return res.status(404).json({ message: "User not found" }); // If user doesn't exist, return 404
+    }
+
+    const index = users.indexOf(user); // Get the index of the user in the array
+    users.splice(index, 1); // Remove the user from the array
+
+    // Write the updated users array to the file
+    fs.writeFile("./Users.json", JSON.stringify(users, null, 2), (err) => {
+        if (err) {
+            return res.status(500).json({ message: "Error deleting user" }); // If error writing to the file
+        }
+        return res.json({ message: "User deleted" }); // Successfully deleted the user
+    });
+});
 
 
 app.listen(PORT, () => {
