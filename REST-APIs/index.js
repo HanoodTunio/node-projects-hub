@@ -59,6 +59,11 @@ app.get("/api/users/:id", (req, res) => {
 
 app.post("/api/users", (req, res) => {
     const body = req.body
+
+    if (!body || !body.first_name || !body.last_name || !body.email || !body.gender) {
+        return res.status(400).json({ msg: "Please provide al fields" })
+    }
+
     // console.log(body)
     users.push({ ...body, id: users.length + 1 })
     fs.writeFile("./Users.json", JSON.stringify(users), (err, data) => {
