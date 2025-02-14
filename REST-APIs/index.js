@@ -45,6 +45,9 @@ app.get("/users", (req, res) => {
 })
 
 app.get("/api/users", (req, res) => {
+    //Headers
+    res.setHeader("x-MyName", "Hanood Mumtaz"); // good practice to add X (it shows it is built in header)
+    console.log(req.headers)
     return res.json(users);
 })
 
