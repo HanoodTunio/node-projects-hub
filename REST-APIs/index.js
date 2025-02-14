@@ -62,7 +62,7 @@ app.post("/api/users", (req, res) => {
     // console.log(body)
     users.push({ ...body, id: users.length + 1 })
     fs.writeFile("./Users.json", JSON.stringify(users), (err, data) => {
-        return res.json({ states: "Success", id: users.length })
+        return res.status(201).json({ states: "Success", id: users.length })
     })
 })
 
