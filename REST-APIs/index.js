@@ -1,13 +1,47 @@
 const express = require("express");
 const users = require("./Users.json");
-const fs = require("fs")
+const mongoose = require("mongoose")
+const fs = require("fs");
+const { type } = require("os");
 
 
 const app = express();
 const PORT = 8080;
 
+// connecting mongoose
+mongoose
+    .connect("mongodb://127.0.0.1:27017/Learning-Phase")
+    .then(() => console.log("Connected to MongoDB"))
+    .catch(err => console.log("" + err));
+
+
+//Schema
+const userSchema = new mongoose.Schema({
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
+        type: String,
+        required: false
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    gender: {
+        type: String,
+        required: true
+    }
+})
+
+const User = mongoose.model("users", userSchema);
+const User2 = mongoose.model("users2", userSchema);
+
+
 // Middleware 
-app.use(express.json()); // Add this line to parse JSON request bodies
+//app.use(express.json()); // Add this line to parse JSON request bodies
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
@@ -30,13 +64,14 @@ app.use((req, res, next) => {
 
 })
 
-app.get("/users", (req, res) => {
+app.get("/users", async (req, res) => {
+    const allDbUsers = await User.find({})
     const html = `
     <html>
     <body>
     <h1>Users</h1>
     <ul>
-    ${users.map(user => `<li>${user.first_name} - ${user.last_name}</li>`).join('')}
+    ${allDbUsers.map(user => `<li>${user.first_name} - ${user.last_name}</li>`).join('')}
         </ul>
         </body>
         </html>
@@ -51,27 +86,38 @@ app.get("/api/users", (req, res) => {
     return res.json(users);
 })
 
-app.get("/api/users/:id", (req, res) => {
-    const id = Number(req.params.id);
-    const user = users.find(user => user.id === id);
+app.get("/api/users/:id", async (req, res) => {
+    // const id = Number(req.params.id);
+    // const user = users.find(user => user.id === id);
+    const user = await User.findById(req.params.id)
     if (!user) {
         return res.status(404).json({ msg: "User not found" });
     }
     return res.json(user);
 })
 
-app.post("/api/users", (req, res) => {
+app.post("/api/users", async (req, res) => {
     const body = req.body
 
     if (!body || !body.first_name || !body.last_name || !body.email || !body.gender) {
         return res.status(400).json({ msg: "Please provide al fields" })
     }
 
-    // console.log(body)
-    users.push({ ...body, id: users.length + 1 })
-    fs.writeFile("./Users.json", JSON.stringify(users), (err, data) => {
-        return res.status(201).json({ states: "Success", id: users.length })
+    // // console.log(body)
+    // users.push({ ...body, id: users.length + 1 })
+    // fs.writeFile("./Users.json", JSON.stringify(users), (err, data) => {
+    //     return res.status(201).json({ states: "Success", id: users.length })
+    // })
+    const result = await User.create({
+        first_name: body.first_name,
+        last_name: body.last_name,
+        email: body.email,
+        gender: body.gender
     })
+
+    console.log("result", result)
+    return res.status(201).json({ states: "Success", id: result.id })
+
 })
 
 app.patch("/api/users/:id", (req, res) => {
