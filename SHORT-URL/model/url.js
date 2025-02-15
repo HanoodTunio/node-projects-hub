@@ -1,21 +1,20 @@
 const mongoose = require("mongoose");
 
+// URL schema
 const urlSchema = new mongoose.Schema({
     shortID: {
         type: String,
         required: true,
-        unique: true,
+        unique: true, // Ensures that short ID is unique
     },
-    redirectURL:
-    {
+    redirectURL: {
         type: String,
-        required: true
+        required: true,
     },
     visitHistory: [{ timestamp: { type: Number } }],
+}, { timestamps: true }); // Timestamps will store createdAt and updatedAt
 
-},
-    { timestamp: true }
-)
+// Create model based on the schema
+const URL = mongoose.model("URL", urlSchema);
 
-const URL = mongoose.model("url", urlSchema);
 module.exports = URL;
