@@ -4,13 +4,151 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        font-size: 18px;
+        color: #444;
+      }
+
+      form {
+        background: #fff;
+        padding: 20px;
+        width: 50%;
+        margin: auto;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        font-size: 16px;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input {
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+        text-transform: uppercase;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      tr:hover {
+        background-color: #ddd;
+        transition: 0.3s;
+      }
+
+      a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+      }
+
+      a:hover {
+        color: #0056b3;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hey from server</h1>
-    <ul>
-      <% urls.forEach(function(url) { %>
-      <li><%= url.shortID %></li>
-      <% }) %>
-    </ul>
+    <h1>URL Shortener</h1>
+
+    <% if (locals.id) { %>
+    <p>
+      URL Generated:
+      <a href="http://localhost:8001/url/<%= locals.id %>" target="_blank">
+        http://localhost:8001/url/<%= locals.id %>
+      </a>
+    </p>
+    <% } %>
+
+    <div>
+      <form method="POST" action="/url">
+        <label>Enter your Original URL</label>
+        <input
+          type="text"
+          name="url"
+          placeholder="https://example.com"
+          required
+        />
+        <button type="submit">Generate</button>
+      </form>
+
+      <div>
+        <% if (locals.urls && locals.urls.length > 0) { %>
+        <table border="1">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Short Id</th>
+              <th>Redirect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% locals.urls.forEach((url, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= url.shortID %></td>
+              <td>
+                <a href="<%= url.redirectURL %>" target="_blank">Visit</a>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <p>No URLs found.</p>
+        <% } %>
+      </div>
+    </div>
   </body>
 </html>

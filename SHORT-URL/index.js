@@ -3,6 +3,7 @@ const connectDB = require('./connect');
 const urlRoutes = require('./routes/url'); // URL route imports
 const path = require("path")
 const URL = require("./model/url")
+const staticRoute = require("./routes/staticRouter")
 
 const app = express();
 const PORT = 8001;
@@ -15,15 +16,12 @@ app.set("views", path.resolve("views"));
 
 // Middleware setup
 app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: false }))
 
-
-app.use("/test", async (req, res) => {
-    const allUrls = await URL.find({})
-    return res.render('home', { urls: allUrls });
-});
 
 // URL routes
 app.use('/url', urlRoutes);
+app.use('/', staticRoute);
 
 // Start server
 app.listen(PORT, () => {
