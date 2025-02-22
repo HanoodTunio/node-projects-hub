@@ -1,8 +1,10 @@
 const express = require('express');
 const connectDB = require('./connect');
-const urlRoutes = require('./routes/url'); // URL route imports
 const path = require("path")
 const URL = require("./model/url")
+
+const urlRoutes = require('./routes/url'); // URL route imports
+const userRoutes = require('./routes/user'); // User route imports
 const staticRoute = require("./routes/staticRouter")
 
 const app = express();
@@ -22,6 +24,7 @@ app.use(express.urlencoded({ extended: false }))
 // URL routes
 app.use('/url', urlRoutes);
 app.use('/', staticRoute);
+app.use('/user', userRoutes);
 
 // Start server
 app.listen(PORT, () => {
