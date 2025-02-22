@@ -1,5 +1,7 @@
 const User = require("../model/user")
 const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require("uuid")
+const { setuser } = require("../service/auth")
 
 
 async function handleUserSignUp(req, res) {
@@ -33,6 +35,9 @@ async function handleUserLogin(req, res) {
             return res.status(401).render("login", { error: "Invalid email or password" });
         }
 
+        const sessionId = uuidv4();
+        setuser(sessionId, user);
+        res.cookie('uid', sessionId)
         // Redirect if successful
         return res.redirect("/");
     } catch (error) {

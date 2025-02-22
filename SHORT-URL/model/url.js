@@ -12,6 +12,10 @@ const urlSchema = new mongoose.Schema({
         required: true,
     },
     visitHistory: [{ timestamp: { type: Number } }],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+    }
 }, { timestamps: true }); // Timestamps will store createdAt and updatedAt
 
 // Create model based on the schema
