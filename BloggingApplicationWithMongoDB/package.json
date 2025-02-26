@@ -1,0 +1,21 @@
+{
+  "name": "bloggingapplicationwithmongodb",
+  "version": "1.0.0",
+  "description": "Blogging Application with MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "Node",
+    "MongoDB",
+    "Express"
+  ],
+  "author": "Hanood",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
+  }
+}
