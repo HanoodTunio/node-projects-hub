@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Add Blog</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-5">
+      <div
+        class="card p-4 shadow rounded"
+        style="max-width: 600px; margin: auto"
+      >
+        <h2 class="text-center mb-4">Add New Blog</h2>
+
+        <form action="/blog" method="post">
+          <!-- Cover Image Upload -->
+          <div class="mb-3">
+            <label for="coverImage" class="form-label fw-bold"
+              >Cover Image</label
+            >
+            <input
+              type="file"
+              class="form-control"
+              id="coverImage"
+              name="coverImage"
+              accept="image/*"
+              required
+            />
+          </div>
+
+          <!-- Blog Title -->
+          <div class="mb-3">
+            <label for="title" class="form-label fw-bold">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              required
+            />
+          </div>
+
+          <!-- Blog Description -->
+          <div class="mb-3">
+            <label for="body" class="form-label fw-bold">Description</label>
+            <textarea
+              class="form-control"
+              placeholder="Write your blog content here..."
+              id="body"
+              name="body"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
