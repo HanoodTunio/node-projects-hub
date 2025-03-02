@@ -16,14 +16,14 @@ router.post("/signin", async (req, res) => {
         const { email, password } = req.body;
 
         // Await the promise to resolve the user data
-        const user = await User.matchPassword(email, password);
+        const token = await User.matchPasswordAndGenerateToken(email, password);
 
-        console.log("User:", user);
+        console.log("token:", token);
 
-        return res.redirect("/");
+        return res.cookie("token", token).redirect("/");
     } catch (error) {
         console.error(error.message);
-        return res.status(401).send("Invalid email or password");
+        return res.render("signin", { error: "Invalid email or password" });
     }
 });
 
