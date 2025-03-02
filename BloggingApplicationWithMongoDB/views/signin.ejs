@@ -6,13 +6,17 @@
   </head>
   <body>
     <%- include('./partials/nav') %> <%- include('./partials/scripts') %>
-    <div class="container mt-4">
-      <form accept="/user/Sigin" method="post">
-        </div>
+
+    <div class="container mt-5">
+      <!-- Added margin-top -->
+      <form
+        action="/user/SignIn"
+        method="post"
+        class="mx-auto p-4 border rounded shadow"
+        style="max-width: 400px"
+      >
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
+          <label for="email" class="form-label">Email address</label>
           <input
             type="email"
             class="form-control"
@@ -25,7 +29,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <label for="password" class="form-label">Password</label>
           <input
             type="password"
             class="form-control"
@@ -33,7 +37,7 @@
             name="password"
           />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
       </form>
     </div>
   </body>

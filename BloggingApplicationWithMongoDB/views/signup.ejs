@@ -2,47 +2,59 @@
 <html lang="en">
   <head>
     <%- include('./partials/head') %>
-    <title>SignUp</title>
+    <title>Sign Up</title>
   </head>
   <body>
     <%- include('./partials/nav') %> <%- include('./partials/scripts') %>
-    <div class="container mt-4">
-      <form accept="/user/Signp" method="post">
+
+    <div class="container mt-5">
+      <!-- Added margin-top -->
+      <form
+        action="/user/Signup"
+        method="post"
+        class="mx-auto p-4 border rounded shadow"
+        style="max-width: 400px"
+      >
+        <h2 class="text-center mb-4">Sign Up</h2>
+        <!-- Added a title -->
+
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Full Name</label>
+          <label for="fullName" class="form-label">Full Name</label>
           <input
             type="text"
             class="form-control"
             id="fullName"
             name="fullName"
-            aria-describedby="emailHelp"
+            required
           />
         </div>
+
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
+          <label for="email" class="form-label">Email Address</label>
           <input
             type="email"
             class="form-control"
             id="email"
             name="email"
-            aria-describedby="emailHelp"
+            required
           />
           <div id="emailHelp" class="form-text">
             We'll never share your email with anyone else.
           </div>
         </div>
+
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <label for="password" class="form-label">Password</label>
           <input
             type="password"
             class="form-control"
             id="password"
             name="password"
+            required
           />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
       </form>
     </div>
   </body>
