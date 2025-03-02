@@ -1,10 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const userRoute = require("./routes/user");
 const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser");
 const checkForAuthenticationCookie = require("./middlewares/authentication");
+
+
+
+const userRoute = require("./routes/user");
+const blogRoute = require("./routes/blog");
 
 
 const app = express();
@@ -29,6 +33,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/user", userRoute);
+app.use("/blog", blogRoute);
 
 app.listen(PORT, () => {
     console.log(`✅ Server is running on port ${PORT}`);
