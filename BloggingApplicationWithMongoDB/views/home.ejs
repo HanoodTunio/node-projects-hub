@@ -3,10 +3,42 @@
   <head>
     <%- include('./partials/head') %>
     <title>Home</title>
+    <style>
+      .card-img-top {
+        height: 200px; /* Fixed height for consistency */
+        object-fit: cover; /* Prevents image distortion */
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+    </style>
   </head>
   <body>
-    <%- include('./partials/nav') %> <%- include('./partials/scripts') %>
-    <h1>Hanood</h1>
-    <%= JSON.stringify(user) %>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-4">
+      <h1 class="text-center mb-4">Latest Blogs</h1>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% blogs.forEach(blog => { %>
+        <div class="col">
+          <div class="card shadow-sm h-100">
+            <img
+              src="<%= blog.coverImage %>"
+              class="card-img-top"
+              alt="Blog Image"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary"
+                >View Blog</a
+              >
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
   </body>
 </html>
