@@ -20,10 +20,13 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
+
         <% if (locals.user) { %>
+        <!-- ✅ Show only when user is logged in -->
         <li class="nav-item">
           <a class="nav-link" href="/blog/add-new">Add Blog</a>
         </li>
+
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -32,13 +35,16 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Hanood
+            <%= locals.user.fullName %>
+            <!-- ✅ Show logged-in user's name -->
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
           </ul>
         </li>
+
         <% } else { %>
+        <!-- ✅ Show when user is NOT logged in -->
         <li class="nav-item">
           <a class="nav-link" href="/user/signup">Create account</a>
         </li>
@@ -51,8 +57,8 @@
   </div>
 </nav>
 
-<% if(locals.error) {%>
+<% if (locals.error) { %>
 <div class="container mt-4 alert-danger" role="alert">
-  <div class="alert alert-danger" role="alert"><%= locals.error%></div>
+  <div class="alert alert-danger" role="alert"><%= locals.error %></div>
 </div>
 <% } %>
