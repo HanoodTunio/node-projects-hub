@@ -49,7 +49,7 @@
     </div>
 
     <div class="container mt-5">
-      <h2 class="mb-4">Comments</h2>
+      <h2 class="mb-4">Comments <%= comments?.length || 0 %></h2>
 
       <% if (locals.user) { %>
       <!-- Comment Form -->
@@ -69,6 +69,20 @@
         <button type="submit" class="btn btn-primary">Submit Comment</button>
       </form>
       <% } %>
+      <div class="container mt-5">
+        <% comments.forEach(comment => { %>
+        <div>
+          <img
+            src="<%= comment.createdBy.profileImageURL %>"
+            alt="Author Image"
+            class="rounded-circle"
+            width="50"
+          />
+          <%= comment.createdBy.fullName %>:
+          <pre><%= comment.content %></pre>
+        </div>
+        <% }) %>
+      </div>
     </div>
 
     <%- include('./partials/scripts') %>

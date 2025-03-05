@@ -10,15 +10,17 @@ const blogSchema = new Schema({
         required: true
     },
     coverImage: {
-        type: String,
-        required: false
+        type: String
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: 'user',
-    }
-}, { timestamps: true }
-);
+        ref: 'user'
+    },
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'comment'
+    }] // Add this field
+}, { timestamps: true });
 
 const Blog = model('blog', blogSchema);
 module.exports = Blog;
