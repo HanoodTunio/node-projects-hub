@@ -1,8 +1,10 @@
 const Router = require("express")
 const Blog = require("../models/blog")
+const Comment = require("../models/comment")
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { blob } = require("stream/consumers");
 
 
 const router = Router()
@@ -41,6 +43,16 @@ router.get('/:id', async (req, res) => {
     });
 });
 
+
+router.post('/comment/:blogId', async (req, res) => {
+    const comment = await Comment.create({
+        content: req.body.content,
+        blogId: req.params.blogId,
+        createdBy: req.user._id
+    });
+
+    return res.redirect(`/blog/${req.params.blogId}`)
+})
 
 router.post("/", upload.single("coverImage"), async (req, res) => {
 
