@@ -48,6 +48,29 @@
       <%= blog.createdBy.fullName %>
     </div>
 
+    <div class="container mt-5">
+      <h2 class="mb-4">Comments</h2>
+
+      <% if (locals.user) { %>
+      <!-- Comment Form -->
+      <form action="/blog/comment/<%= blog._id %>" method="post">
+        <div class="mb-3">
+          <label for="userComment" class="form-label">Your Comment</label>
+          <textarea
+            type="text"
+            name="content"
+            class="form-control"
+            rows="4"
+            placeholder="Write your comment here..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Comment</button>
+      </form>
+      <% } %>
+    </div>
+
     <%- include('./partials/scripts') %>
   </body>
 </html>
