@@ -37,6 +37,17 @@
       <pre class="mt-3"><%- blog.body %></pre>
     </div>
 
+    <div class="container mt-5">
+      <h5>Written by</h5>
+      <img
+        src="<%= blog.createdBy.profileImageURL %>"
+        alt="Author Image"
+        class="rounded-circle"
+        width="50"
+      />
+      <%= blog.createdBy.fullName %>
+    </div>
+
     <%- include('./partials/scripts') %>
   </body>
 </html>
