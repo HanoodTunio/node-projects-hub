@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect("mongodb://127.0.0.1:27017/blogify")
+mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log("✅ MongoDB connected"))
     .catch(() => console.log("❌ MongoDB connection failed"));
 
