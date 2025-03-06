@@ -11,16 +11,25 @@
     <input type="text" id="message" placeholder="Enter msg" />
     <button id="sendBtn">Send</button>
 
+    <div id="messgaes"></div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io();
       const messageInput = document.getElementById("message");
       const sendBtn = document.getElementById("sendBtn");
+      const allMessages = document.getElementById("messgaes");
+
+      socket.on("message", (message) => {
+        const messageElement = document.createElement("div");
+        messageElement.textContent = message;
+        allMessages.appendChild(messageElement);
+      });
 
       sendBtn.addEventListener("click", () => {
         const message = messageInput.value.trim();
         console.log(message);
-        socket.emit("message", message);
+        socket.emit("user-message", message);
       });
     </script>
   </body>
